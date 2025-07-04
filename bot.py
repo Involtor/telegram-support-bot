@@ -20,12 +20,11 @@ async def admin_reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await context.bot.send_message(chat_id=user_id, text=update.message.text)
 
 def main():
-    print("Starting bot...")
+    print("✅ Starting bot...")
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), user_message))
     app.add_handler(MessageHandler(filters.TEXT & filters.Chat(chat_id=ADMIN_CHAT_ID), admin_reply))
     app.run_polling()
-    print("Bot started successfully")
 
 if __name__ == "__main__":
     main()

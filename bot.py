@@ -1,3 +1,4 @@
+print("Bot script started")
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 
@@ -23,6 +24,7 @@ def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), user_message))
     app.add_handler(MessageHandler(filters.TEXT & filters.Chat(chat_id=ADMIN_CHAT_ID), admin_reply))
+    print("Starting polling")
     app.run_polling()
 
 if __name__ == "__main__":

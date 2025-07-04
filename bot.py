@@ -1,8 +1,8 @@
 from telegram import Update
-from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters
+from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 
-BOT_TOKEN = "ВАШ_ТОКЕН"  # Вставь свой токен от @BotFather
-ADMIN_CHAT_ID = 123456789  # Вставь свой Telegram ID
+BOT_TOKEN = "ваш_токен"
+ADMIN_CHAT_ID = 591672212
 
 async def user_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
@@ -19,8 +19,11 @@ async def admin_reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
             user_id = int(parts[-1])
             await context.bot.send_message(chat_id=user_id, text=update.message.text)
 
-app = ApplicationBuilder().token(BOT_TOKEN).build()
-app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), user_message))
-app.add_handler(MessageHandler(filters.TEXT & filters.Chat(chat_id=ADMIN_CHAT_ID), admin_reply))
+def main():
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), user_message))
+    app.add_handler(MessageHandler(filters.TEXT & filters.Chat(chat_id=ADMIN_CHAT_ID), admin_reply))
+    app.run_polling()
 
-app.run_polling()
+if __name__ == "__main__":
+    main()
